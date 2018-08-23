@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yzh.myweb.dao.mapper.ResourceMapper">
+  <resultMap id="BaseResultMap" type="com.yzh.myweb.dao.entity.Resource">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="res_name" jdbcType="VARCHAR" property="resName" />
+    <result column="res_type" jdbcType="CHAR" property="resType" />
+    <result column="parent_res_id" jdbcType="INTEGER" property="parentResId" />
+    <result column="res_authorize_key" jdbcType="VARCHAR" property="resAuthorizeKey" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="is_enable" jdbcType="CHAR" property="isEnable" />
+    <result column="is_show" jdbcType="CHAR" property="isShow" />
+    <result column="create_user" jdbcType="INTEGER" property="createUser" />
+    <result column="update_user" jdbcType="INTEGER" property="updateUser" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, res_name, res_type, parent_res_id, res_authorize_key, url, is_enable, is_show, 
+    create_user, update_user, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from mgr_resource
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from mgr_resource
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yzh.myweb.dao.entity.Resource">
+    insert into mgr_resource (id, res_name, res_type, 
+      parent_res_id, res_authorize_key, url, 
+      is_enable, is_show, create_user, 
+      update_user, create_time, update_time
+      )
+    values (#{id,jdbcType=INTEGER}, #{resName,jdbcType=VARCHAR}, #{resType,jdbcType=CHAR}, 
+      #{parentResId,jdbcType=INTEGER}, #{resAuthorizeKey,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, 
+      #{isEnable,jdbcType=CHAR}, #{isShow,jdbcType=CHAR}, #{createUser,jdbcType=INTEGER}, 
+      #{updateUser,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yzh.myweb.dao.entity.Resource">
+    insert into mgr_resource
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="resName != null">
+        res_name,
+      </if>
+      <if test="resType != null">
+        res_type,
+      </if>
+      <if test="parentResId != null">
+        parent_res_id,
+      </if>
+      <if test="resAuthorizeKey != null">
+        res_authorize_key,
+      </if>
+      <if test="url != null">
+        url,
+      </if>
+      <if test="isEnable != null">
+        is_enable,
+      </if>
+      <if test="isShow != null">
+        is_show,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="resName != null">
+        #{resName,jdbcType=VARCHAR},
+      </if>
+      <if test="resType != null">
+        #{resType,jdbcType=CHAR},
+      </if>
+      <if test="parentResId != null">
+        #{parentResId,jdbcType=INTEGER},
+      </if>
+      <if test="resAuthorizeKey != null">
+        #{resAuthorizeKey,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null">
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="isEnable != null">
+        #{isEnable,jdbcType=CHAR},
+      </if>
+      <if test="isShow != null">
+        #{isShow,jdbcType=CHAR},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yzh.myweb.dao.entity.Resource">
+    update mgr_resource
+    <set>
+      <if test="resName != null">
+        res_name = #{resName,jdbcType=VARCHAR},
+      </if>
+      <if test="resType != null">
+        res_type = #{resType,jdbcType=CHAR},
+      </if>
+      <if test="parentResId != null">
+        parent_res_id = #{parentResId,jdbcType=INTEGER},
+      </if>
+      <if test="resAuthorizeKey != null">
+        res_authorize_key = #{resAuthorizeKey,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null">
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="isEnable != null">
+        is_enable = #{isEnable,jdbcType=CHAR},
+      </if>
+      <if test="isShow != null">
+        is_show = #{isShow,jdbcType=CHAR},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yzh.myweb.dao.entity.Resource">
+    update mgr_resource
+    set res_name = #{resName,jdbcType=VARCHAR},
+      res_type = #{resType,jdbcType=CHAR},
+      parent_res_id = #{parentResId,jdbcType=INTEGER},
+      res_authorize_key = #{resAuthorizeKey,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR},
+      is_enable = #{isEnable,jdbcType=CHAR},
+      is_show = #{isShow,jdbcType=CHAR},
+      create_user = #{createUser,jdbcType=INTEGER},
+      update_user = #{updateUser,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,60 @@
+server:
+  port: 8081
+
+security:
+  oauth2:
+    resource:
+      filter-order: 3
+  basic:
+    enabled: false
+  ignored: /auth/token/**
+
+spring:
+  application:
+    name: myweb
+  http:
+    encoding:
+      force: true
+      charset: utf-8
+      enabled: true
+    multipart:
+      enabled: true
+      max-file-size: 60MB
+      max-request-size: 60MB
+      
+profiles:
+  active: dev
+
+encrypt:
+  fail-on-error: false
+zuul:
+  ignored-services: '*'
+  sensitive-headers: Cookie,Set-Cookie,Authorization
+  retryable: true
+  routes:
+    user:
+      path: /user/**
+      service-id: myservice
+  host:
+    connect-timeout-millis: 120000
+    socket-timeout-millis: 120000
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+    registry-fetch-interval-seconds: 20
+  instance:
+    prefer-ip-address: true
+
+management:
+  security:
+    enabled: false
+
+hystrix:
+    command:
+        default:
+            execution:
+                isolation:
+                    thread:
+                        timeoutInMilliseconds: 60000

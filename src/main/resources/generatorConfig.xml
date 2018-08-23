@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+    <context id="mssqlGenerator" targetRuntime="MyBatis3">
+        <commentGenerator>
+            <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+            <property name="suppressAllComments" value="true" />
+            <property name="suppressDate" value="false"/>
+        </commentGenerator>
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://127.0.0.1:3306/test"  userId="root" password="root" />
+        <javaModelGenerator targetPackage="com.yzh.myweb.dao.entity" targetProject="src/main/java" />
+        <sqlMapGenerator targetPackage="mapper" targetProject="src/main/resources" />
+        <javaClientGenerator targetPackage="com.yzh.myweb.dao.mapper" targetProject="src/main/java" type="XMLMAPPER" />
+        <table tableName="mgr_resource" domainObjectName="Resource" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+        </table>
+    </context>
+</generatorConfiguration>
