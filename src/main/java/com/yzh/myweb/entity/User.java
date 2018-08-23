@@ -1,54 +1,91 @@
 package com.yzh.myweb.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import java.io.Serializable;
+import java.util.Date;
 
-@Entity
-public class User {
+import com.baomidou.mybatisplus.annotations.TableId;
+import com.baomidou.mybatisplus.annotations.TableLogic;
+import com.baomidou.mybatisplus.annotations.TableName;
+import com.baomidou.mybatisplus.enums.IdType;
 
-	@Id
-	@GeneratedValue
-	private Long id;
+import lombok.Data;
+import lombok.experimental.Accessors;
 
-	@Column(nullable = false)
-	private String name;
+/**
+ * <p>
+ * 用户表
+ * </p>
+ *
+ * @author generator
+ * @since 2018-07-18
+ */
+@Data
+@Accessors(chain = true)
+@TableName("t_user")
+public class User implements Serializable {
 
-	@Column(nullable = false)
-	private Integer age;
+    private static final long serialVersionUID = 1L;
 
-	
-	public User() {
-	}
+    /**
+     * 用户ID(域账户ID)
+     */
+    @TableId(value = "user_id", type = IdType.AUTO)
+    private Integer userId;
+    /**
+     * 用户名
+     */
+    private String userName;
+    /**
+     * 真实姓名
+     */
+    private String realName;
+    /**
+     * 手机号码
+     */
+    private String phone;
+    /**
+     * 邮箱
+     */
+    private String email;
+    /**
+     * 用户级别 1Boss 2主办 3协办
+     */
+    private Integer userLevel;
 
-	public User(String name, int age) {
-		this.name=name;
-		this.age=age;
-	}
+    /**
+     * 用户职位
+     */
+    private String job;
 
-	public Long getId() {
-		return id;
-	}
+    /**
+     * 上级用户ID
+     */
+    private Integer parentUserId;
+    /**
+     * 负责板块((1基建工程,2医药医疗,3能源化工,4其他)
+     */
+    private String responsiblePlate;
+    /**
+     * 是否删除(0:未删除,1:删除)
+     */
+    @TableLogic
+    private String isDeleted;
+    /**
+     * 创建人
+     */
+    private String createBy;
+    /**
+     * 创建时间
+     */
+    private Date createTime;
+    /**
+     * 修改人
+     */
+    private String updateBy;
+    /**
+     * 修改时间
+     */
+    private Date updateTime;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public Integer getAge() {
-		return age;
-	}
-
-	public void setAge(Integer age) {
-		this.age = age;
-	}
-	
 }

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.yzh.myweb.entity.User;
+import com.yzh.myweb.entity.User2;
 import com.yzh.myweb.service.UserService;
 
 import io.swagger.annotations.ApiImplicitParam;
@@ -24,19 +24,19 @@ import io.swagger.annotations.ApiOperation;
 @RequestMapping(value = "/users") // 通过这里配置使下面的映射都在/users下，可去除
 public class UserController {
 
-	static Map<Long, User> users = Collections.synchronizedMap(new HashMap<Long, User>());
+	static Map<Long, User2> users = Collections.synchronizedMap(new HashMap<Long, User2>());
 	
 	@ApiOperation(value = "获取用户列表", notes = "")
 	@RequestMapping(value = { "" }, method = RequestMethod.GET)
-	public List<User> getUserList() {
-		List<User> r = new ArrayList<User>(users.values());
+	public List<User2> getUserList() {
+		List<User2> r = new ArrayList<User2>(users.values());
 		return r;
 	}
 
 	@ApiOperation(value = "创建用户", notes = "根据User对象创建用户")
 	@ApiImplicitParam(name = "user", value = "用户详细实体user", required = true, dataType = "User")
 	@RequestMapping(value = "", method = RequestMethod.POST)
-	public String postUser(@RequestBody User user) {
+	public String postUser(@RequestBody User2 user) {
 		users.put(user.getId(), user);
 		return "success";
 	}
@@ -44,7 +44,7 @@ public class UserController {
 	@ApiOperation(value = "获取用户详细信息", notes = "根据url的id来获取用户详细信息")
 	@ApiImplicitParam(name = "id", value = "用户ID", required = true, dataType = "Long")
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public User getUser(@PathVariable Long id) {
+	public User2 getUser(@PathVariable Long id) {
 		return users.get(id);
 	}
 
@@ -52,8 +52,8 @@ public class UserController {
 	@ApiImplicitParams({ @ApiImplicitParam(name = "id", value = "用户ID", required = true, dataType = "Long"),
 			@ApiImplicitParam(name = "user", value = "用户详细实体user", required = true, dataType = "User") })
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-	public String putUser(@PathVariable Long id, @RequestBody User user) {
-		User u = users.get(id);
+	public String putUser(@PathVariable Long id, @RequestBody User2 user) {
+		User2 u = users.get(id);
 		u.setName(user.getName());
 		u.setAge(user.getAge());
 		users.put(id, u);

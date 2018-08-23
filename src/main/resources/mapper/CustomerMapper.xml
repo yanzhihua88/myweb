@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yzh.myweb.mapper.CustomerMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.yzh.myweb.entity.Customer">
+        <id column="customer_id" property="customerId" />
+        <result column="customer_name" property="customerName" />
+        <result column="customer_level" property="customerLevel" />
+        <result column="english_name" property="englishName" />
+        <result column="license_type" property="licenseType" />
+        <result column="license_code" property="licenseCode" />
+        <result column="license_term" property="licenseTerm" />
+        <result column="enterprise_type" property="enterpriseType" />
+        <result column="operating_status" property="operatingStatus" />
+        <result column="reg_date" property="regDate" />
+        <result column="reg_address" property="regAddress" />
+        <result column="business_term" property="businessTerm" />
+        <result column="registration_authority" property="registrationAuthority" />
+        <result column="industry_cate" property="industryCate" />
+        <result column="approval_date" property="approvalDate" />
+        <result column="residential_address" property="residentialAddress" />
+        <result column="business_address" property="businessAddress" />
+        <result column="product" property="product" />
+        <result column="law_person" property="lawPerson" />
+        <result column="law_mobile" property="lawMobile" />
+        <result column="law_sex" property="lawSex" />
+        <result column="law_cert_type" property="lawCertType" />
+        <result column="law_cert_code" property="lawCertCode" />
+        <result column="law_cert_term" property="lawCertTerm" />
+        <result column="law_nationality" property="lawNationality" />
+        <result column="law_antifraud_result" property="lawAntifraudResult" />
+        <result column="contact_name" property="contactName" />
+        <result column="contact_sex" property="contactSex" />
+        <result column="contact_mobile" property="contactMobile" />
+        <result column="contact_phone" property="contactPhone" />
+        <result column="contact_email" property="contactEmail" />
+        <result column="contact_cred_type" property="contactCredType" />
+        <result column="contact_cred_code" property="contactCredCode" />
+        <result column="contact_cert_term" property="contactCertTerm" />
+        <result column="contact_antifraud_result" property="contactAntifraudResult" />
+        <result column="controller_name" property="controllerName" />
+        <result column="controller_sex" property="controllerSex" />
+        <result column="controller_mobile" property="controllerMobile" />
+        <result column="controller_phone" property="controllerPhone" />
+        <result column="controller_email" property="controllerEmail" />
+        <result column="controller_cred_type" property="controllerCredType" />
+        <result column="controller_cred_code" property="controllerCredCode" />
+        <result column="controller_cert_term" property="controllerCertTerm" />
+        <result column="controller_antifraud_result" property="controllerAntifraudResult" />
+        <result column="core_enterprise" property="coreEnterprise" />
+        <result column="intent_business" property="intentBusiness" />
+        <result column="belong_city" property="belongCity" />
+        <result column="data_source" property="dataSource" />
+        <result column="related_source_id" property="relatedSourceId" />
+        <result column="remark" property="remark" />
+        <result column="last_follow_date" property="lastFollowDate" />
+        <result column="is_deleted" property="isDeleted" />
+        <result column="create_by" property="createBy" />
+        <result column="related_create_time" property="relatedCreateTime" />
+        <result column="create_time" property="createTime" />
+        <result column="update_by" property="updateBy" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        customer_id, customer_name, customer_level, english_name, license_type, license_code, license_term, enterprise_type, operating_status, reg_date, reg_address, business_term, registration_authority, industry_cate, approval_date, residential_address, business_address, product, law_person,law_mobile, law_sex, law_cert_type, law_cert_code, law_cert_term, law_nationality, law_antifraud_result, contact_name, contact_sex, contact_mobile, contact_phone, contact_email, contact_cred_type, contact_cred_code, contact_cert_term, contact_antifraud_result, controller_name, controller_sex, controller_mobile, controller_phone, controller_email, controller_cred_type, controller_cred_code, controller_cert_term, controller_antifraud_result, core_enterprise, intent_business, belong_city, data_source, related_source_id, remark, last_follow_date, is_deleted, create_by, related_create_time, create_time, update_by, update_time
+    </sql>
+
+    <select id="selectByRelatedSourceId" resultMap="BaseResultMap">
+        select
+          <include refid="Base_Column_List" />
+        from t_customer
+        where data_source = #{dataSource,jdbcType=VARCHAR}
+        and related_source_id = #{relatedSourceId,jdbcType=VARCHAR}
+        limit 1
+    </select>
+
+
+	<select id="selectPageList" resultMap="BaseResultMap" parameterType="com.yzh.myweb.dto.CustomerQueryDTO">
+            select a.*
+            from t_customer a
+            where a.is_deleted=0
+            and (a.customer_id in(select customer_id from t_customer_follow_user where user_id=#{userId} and is_deleted=0)
+            <if test="industryCate != null and industryCate != '' ">
+                or locate(industry_cate,#{industryCate})>0
+            </if>)
+		    <if test="customerName != null and customerName != '' ">
+	       		and a.customer_name like concat('%',#{customerName},'%')
+	      	</if>
+	      	<if test="customerLevel != null and customerLevel != '' ">
+	       		and a.customer_level = #{customerLevel,jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="dataSource != null and dataSource != '' ">
+	       		and a.data_source = #{dataSource,jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="intentBusiness != null and intentBusiness != '' ">
+	       		and a.intent_business = #{intentBusiness,jdbcType=VARCHAR}
+	      	</if>
+            <if test="startTime != null and startTime != '' ">
+                and a.last_follow_date &gt;= #{startTime,jdbcType=VARCHAR}
+            </if>
+            <if test="endTime != null and endTime != '' ">
+                and a.last_follow_date &lt;= #{endTime,jdbcType=VARCHAR}
+            </if>
+	        order by a.create_time desc
+	</select>
+</mapper>
