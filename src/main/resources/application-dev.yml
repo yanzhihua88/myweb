@@ -1,0 +1,67 @@
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+    registry-fetch-interval-seconds: 20
+  instance:
+    prefer-ip-address: true
+spring:
+  datasource:
+    crm:
+      driver-class-name: com.mysql.jdbc.Driver
+      url: jdbc:mysql://127.0.0.1:3306/shengye_crm?useUnicode=true&characterEncoding=utf-8
+      username: root
+      password: root
+      initialSize: 5
+      minIdle: 5 
+      maxActive: 20 
+      ## 配置获取连接等待超时的时间
+      maxWait: 60000
+      # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+      timeBetweenEvictionRunsMillis: 60000
+      # 配置一个连接在池中最小生存的时间，单位是毫秒
+      minEvictableIdleTimeMillis: 300000
+      validationQuery: SELECT 1 FROM DUAL
+      testWhileIdle: true
+      testOnBorrow: true
+      testOnReturn: true
+      poolPreparedStatements: true
+      maxPoolPreparedStatementPerConnectionSize: 20
+    bgy:
+      driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+      url: jdbc:sqlserver://127.0.0.1:1433;DatabaseName=test_fos_it
+      username: test1
+      password: test1
+  redis:
+    host: ${REDIS_HOST:192.168.2.176}
+    port: 6379
+    database: 1
+    pool:
+      max-active: 10
+      max-idle: 10
+      max-wait: -1
+      min-idle: 0
+  jpa:
+      show-sql: true
+  jackson:
+      default-property-inclusion: non_null # 全局jackson配置
+
+ceph:
+  gateway: 10.10.1.11:80
+  accessKey: JH5EU5GAVOMHPHXX81B1
+  secretKey: RrBevoZ1oce6GrRjUgsVaD6YyFi9pZhvfO6UNqFr
+  projectName: crm
+  
+qianzhan:
+  appkey: 0b7ef9e8779d1123
+  seckey: 48527e94deaf63a5
+  
+erp:
+  host: http://192.168.2.168:8020
+#  host: http://192.168.2.172:8021
+
+abs: 
+  #测试
+  host: http://192.168.2.158:8887  
+  #刘琨
+#  host: http://192.168.1.129:8887  
