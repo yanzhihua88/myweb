@@ -65,3 +65,15 @@ abs:
   host: http://192.168.2.158:8887  
   #刘琨
 #  host: http://192.168.1.129:8887  
+
+
+# FTP 配置
+com: 
+  web: 
+   ftp:
+    ftpHost: 127.0.0.1
+    ftpPort: 81
+    ftpUserName: abc
+    ftpPassword: 123
+    tempfilePath: /tmp/
+    tempDownloadFilePath: /tmpDownload/

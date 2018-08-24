@@ -136,11 +136,18 @@
 			<artifactId>fastjson</artifactId>
 			<version>${fastjson.version}</version>
 		</dependency>
+		
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
 			<version>${commons-lang3.version}</version>
 		</dependency>
+
+		<dependency>
+            <groupId>commons-net</groupId>
+            <artifactId>commons-net</artifactId>
+            <version>3.6</version>
+        </dependency>
 
 		<dependency>
 			<groupId>com.github.penggle</groupId>
@@ -228,6 +235,8 @@
             <artifactId>aspose-words</artifactId>
             <version>16.8.0</version>
         </dependency>
+        
+        
 	</dependencies>
 
 	<build>
